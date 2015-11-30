@@ -295,6 +295,11 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
 
     }
 
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -304,6 +309,16 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
         Bundle args = getArguments();
         boolean allowContextualActions =
                 (args == null) ? true : args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+//        MenuItem shareItem = menu.findItem(R.id.action_share_file);
+//        MenuItem unshareItem = menu.findItem(R.id.action_unshare_file);
+//        if (shareItem != null) {
+//            shareItem.setVisible(false);
+//            shareItem.setEnabled(false);
+//        }
+//        if (unshareItem != null) {
+//            unshareItem.setVisible(false);
+//            unshareItem.setEnabled(false);
+//        }
         if (allowContextualActions) {
             MenuInflater inflater = getActivity().getMenuInflater();
             inflater.inflate(R.menu.file_actions_menu, menu);
@@ -341,18 +356,18 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
     public boolean onFileActionChosen(int menuId, int filePosition) {
         mTargetFile = (OCFile) mAdapter.getItem(filePosition);
         switch (menuId) {
-            case R.id.action_share_file: {
-                mContainerActivity.getFileOperationsHelper().shareFileWithLink(mTargetFile);
-                return true;
-            }
+//            case R.id.action_share_file: {
+//                mContainerActivity.getFileOperationsHelper().shareFileWithLink(mTargetFile);
+//                return true;
+//            }
             case R.id.action_open_file_with: {
                 mContainerActivity.getFileOperationsHelper().openFile(mTargetFile);
                 return true;
             }
-            case R.id.action_unshare_file: {
-                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(mTargetFile);
-                return true;
-            }
+//            case R.id.action_unshare_file: {
+//                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(mTargetFile);
+//                return true;
+//            }
             case R.id.action_rename_file: {
                 RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(mTargetFile);
                 dialog.show(getFragmentManager(), FileDetailFragment.FTAG_RENAME_FILE);
