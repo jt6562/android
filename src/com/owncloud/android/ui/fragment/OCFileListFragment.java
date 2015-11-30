@@ -53,8 +53,8 @@ import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
-import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
 
@@ -63,8 +63,9 @@ import java.io.File;
  *
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
-public class OCFileListFragment extends ExtendedListFragment implements FileActionsDialogFragment.FileActionsDialogFragmentListener {
-    
+public class OCFileListFragment extends ExtendedListFragment
+        implements FileActionsDialogFragment.FileActionsDialogFragmentListener {
+
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
     private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ?
@@ -80,11 +81,11 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
     private OCFile mFile = null;
     private FileListListAdapter mAdapter;
     private boolean mJustFolders;
-    
+
     private OCFile mTargetFile;
-    
-   
-    
+
+
+
     /**
      * {@inheritDoc}
      */
@@ -101,7 +102,7 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
         }
         try {
             setOnRefreshListener((OnEnforceableRefreshListener) activity);
-            
+
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " +
                     SwipeRefreshLayout.OnRefreshListener.class.getSimpleName());
@@ -193,7 +194,8 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                 }
             }
 
-            FileActionsDialogFragment dialog = FileActionsDialogFragment.newInstance(menu, fileIndex, targetFile.getFileName());
+            FileActionsDialogFragment dialog = FileActionsDialogFragment.newInstance(menu,
+                    fileIndex, targetFile.getFileName());
             dialog.setTargetFragment(this, 0);
             dialog.show(getFragmentManager(), FileActionsDialogFragment.FTAG_FILE_ACTIONS);
         }
@@ -334,11 +336,11 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                 );
                 mf.filter(menu);
             }
-                 
+
             /// TODO break this direct dependency on FileDisplayActivity... if possible
             MenuItem item = menu.findItem(R.id.action_open_file_with);
             FileFragment frag = ((FileDisplayActivity)getActivity()).getSecondFragment();
-            if (frag != null && frag instanceof FileDetailFragment && 
+            if (frag != null && frag instanceof FileDetailFragment &&
                     frag.getFile().getFileId() == targetFile.getFileId()) {
                 item = menu.findItem(R.id.action_see_details);
                 if (item != null) {
@@ -356,18 +358,14 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
     public boolean onFileActionChosen(int menuId, int filePosition) {
         mTargetFile = (OCFile) mAdapter.getItem(filePosition);
         switch (menuId) {
-//            case R.id.action_share_file: {
-//                mContainerActivity.getFileOperationsHelper().shareFileWithLink(mTargetFile);
-//                return true;
-//            }
+//           case R.id.action_share_file: {
+//               mContainerActivity.getFileOperationsHelper().showShareFile(mTargetFile);
+//               return true;
+//           }
             case R.id.action_open_file_with: {
                 mContainerActivity.getFileOperationsHelper().openFile(mTargetFile);
                 return true;
             }
-//            case R.id.action_unshare_file: {
-//                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(mTargetFile);
-//                return true;
-//            }
             case R.id.action_rename_file: {
                 RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(mTargetFile);
                 dialog.show(getFragmentManager(), FileDetailFragment.FTAG_RENAME_FILE);
@@ -383,9 +381,8 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                 mContainerActivity.getFileOperationsHelper().syncFile(mTargetFile);
                 return true;
             }
-            case R.id.action_cancel_download:
-            case R.id.action_cancel_upload: {
-                ((FileDisplayActivity) mContainerActivity).cancelTransference(mTargetFile);
+            case R.id.action_cancel_sync: {
+                ((FileDisplayActivity)mContainerActivity).cancelTransference(mTargetFile);
                 return true;
             }
             case R.id.action_see_details: {
@@ -430,14 +427,15 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
                 return false;
         }
     }
-    
+
     /**
      * {@inhericDoc}
      */
     @Override
     public boolean onContextItemSelected (MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        boolean matched = onFileActionChosen(item.getItemId(), ((AdapterContextMenuInfo) item.getMenuInfo()).position);
+        boolean matched = onFileActionChosen(item.getItemId(),
+                ((AdapterContextMenuInfo) item.getMenuInfo()).position);
         if(!matched) {
             return super.onContextItemSelected(item);
         } else {
@@ -464,7 +462,7 @@ public class OCFileListFragment extends ExtendedListFragment implements FileActi
         // TODO Enable when "On Device" is recovered ?
         // listDirectory(null, onlyOnDevice);
     }
-    
+
     public void refreshDirectory(){
         // TODO Enable when "On Device" is recovered ?
         listDirectory(getCurrentFile()/*, MainApp.getOnlyOnDevice()*/);

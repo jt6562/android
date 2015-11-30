@@ -59,7 +59,7 @@ import third_parties.michaelOrtiz.TouchImageViewCustom;
  *
  * Trying to get an instance with a NULL {@link OCFile} will produce an
  * {@link IllegalStateException}.
- * 
+ *
  * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on
  * instantiation too.
  */
@@ -107,13 +107,13 @@ public class PreviewImageFragment extends FileFragment {
     }
 
 
-    
+
     /**
      *  Creates an empty fragment for image previews.
-     * 
+     *
      *  MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically
      *  (for instance, when the device is turned a aside).
-     * 
+     *
      *  DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful
      *  construction
      */
@@ -246,7 +246,7 @@ public class PreviewImageFragment extends FileFragment {
             mf.filter(menu);
         }
 
-        // additional restriction for this fragment 
+        // additional restriction for this fragment
         // TODO allow renaming in PreviewImageFragment
         MenuItem item = menu.findItem(R.id.action_rename_file);
         if (item != null) {
@@ -254,7 +254,7 @@ public class PreviewImageFragment extends FileFragment {
             item.setEnabled(false);
         }
 
-        // additional restriction for this fragment 
+        // additional restriction for this fragment
         // TODO allow refresh file in PreviewImageFragment
         item = menu.findItem(R.id.action_sync_file);
         if (item != null) {
@@ -285,14 +285,10 @@ public class PreviewImageFragment extends FileFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-//            case R.id.action_share_file: {
-//                mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
-//                return true;
-//            }
-//            case R.id.action_unshare_file: {
-//                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
-//                return true;
-//            }
+//           case R.id.action_share_file: {
+//               mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
+//               return true;
+//           }
             case R.id.action_open_file_with: {
                 openFile();
                 return true;
@@ -332,7 +328,6 @@ public class PreviewImageFragment extends FileFragment {
         mContainerActivity.showDetails(getFile());
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -365,7 +360,7 @@ public class PreviewImageFragment extends FileFragment {
         finish();
     }
 
-    
+
     private class LoadBitmapTask extends AsyncTask<OCFile, Void, LoadImage> {
 
         /**
@@ -387,7 +382,7 @@ public class PreviewImageFragment extends FileFragment {
 
         /**
          * Weak reference to the target {@link ProgressBar} shown while the load is in progress.
-         * 
+         *
          * Using a weak reference will avoid memory leaks if the target ImageView is retired from
          * memory before the load finishes.
          */
@@ -546,7 +541,7 @@ public class PreviewImageFragment extends FileFragment {
     /**
      * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment}
      * to be previewed.
-     * 
+     *
      * @param file      File to test if can be previewed.
      * @return          'True' if the file can be handled by the fragment.
      */

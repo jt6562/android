@@ -298,14 +298,10 @@ public class PreviewTextFragment extends FileFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-//            case R.id.action_share_file: {
-//                mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
-//                return true;
-//            }
-//            case R.id.action_unshare_file: {
-//                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
-//                return true;
-//            }
+//           case R.id.action_share_file: {
+//               mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
+//               return true;
+//           }
             case R.id.action_open_file_with: {
                 openFile();
                 return true;
